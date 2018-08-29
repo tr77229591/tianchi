@@ -5,11 +5,16 @@ let router = express.Router()
 
 // register a new company
 
-
 /**
-@api {post} /balancesheet/newbalancesheet
-@apiParam {string} name
-*/
+ * @api {post} /balancesheet/newbalancesheet  新增资产负债表
+ * @apiDescription 新增资产负债表
+ * @apiName newbalancesheet
+ * @apiGroup balancesheet
+ * @apiParam {string} lrfs 法人代表家族史
+ * @apiParam {string} actualControllers 实际控制人列表
+ * @apiSampleRequest http://localhost:4000/balancesheet/newbalancesheet
+ * @apiVersion 1.0.0
+ */
 router.post('/newbalancesheet',function(req,res){
   const {lrfs,actualControllers} = req.body
   const plaintext = lrfs
@@ -24,6 +29,15 @@ router.post('/newbalancesheet',function(req,res){
 
 
 // fetchddr
+/**
+ * @api {get} /balancesheet/fetchbalancesheet/:id  获得资产负债表
+ * @apiDescription 获得资产负债表信息
+ * @apiName getbalancesheet
+ * @apiGroup balancesheet
+ * @apiParam {string} lrfs 法人代表家族史
+ * @apiSampleRequest http://localhost:4000/balancesheet/fetchbalancesheet/:id
+ * @apiVersion 1.0.0
+ */
 router.get('/fetchbalancesheet/:lrfs',function(req,res){
   const plaintext = req.params.lrfs
   let ID=utils.encrypted(encryptedPassword,SALT)

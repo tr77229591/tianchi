@@ -7,9 +7,15 @@ let router = express.Router()
 
 
 /**
-@api {post} /newddr
-@apiParam {string} name
-*/
+ * @api {post} /ddr/newddr  新增尽职报告调查
+ * @apiDescription 新增尽职报告调查
+ * @apiName newddr
+ * @apiGroup ddr
+ * @apiParam {string} balanceSheet 资产负债表
+ * @apiParam {string} description 其他描述
+ * @apiSampleRequest http://localhost:4000/ddr/newddr
+ * @apiVersion 1.0.0
+ */
 router.post('/newddr',function(req,res){
   const {balanceSheet,description} = req.body
   const plaintext = name
@@ -24,6 +30,15 @@ router.post('/newddr',function(req,res){
 
 
 // fetchddr
+/**
+ * @api {get} /ddr/fetchddr/:name  查询尽职报告调查
+ * @apiDescription 查询尽职报告调查
+ * @apiName querryddr
+ * @apiGroup ddr
+ * @apiParam {string} name 资产负债ID
+ * @apiSampleRequest http://localhost:4000/ddr/fetchddr/:name
+ * @apiVersion 1.0.0
+ */
 router.get('/fetchddr/:name',function(req,res){
   const plaintext = req.params.name
   let ID=utils.encrypted(encryptedPassword,SALT)

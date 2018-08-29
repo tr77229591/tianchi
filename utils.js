@@ -43,3 +43,5 @@ module.exports.asyncInvoke = async function(chaincodeId,fcn,args){
     }
     return results
 }
+
+

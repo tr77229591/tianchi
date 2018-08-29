@@ -7,9 +7,16 @@ let router = express.Router()
 
 
 /**
-@api {post} /newfin
-@apiParam {string} name
-*/
+ * @api {post} /finins/newfin  新增金融机构
+ * @apiDescription 新增金融机构
+ * @apiName newfin
+ * @apiGroup fin
+ * @apiParam {string} name 金融机构名称
+ * @apiParam {string} address 金融机构地址
+ * @apiParam {string} password 金融机构密码
+ * @apiSampleRequest http://localhost:4000/finins/newfin
+ * @apiVersion 1.0.0
+ */
 router.post('/newfin',function(req,res){
   const {name,address,password} = req.body
   const plaintext = name+password
@@ -24,6 +31,17 @@ router.post('/newfin',function(req,res){
 
 
 // login finiancial institution
+
+/**
+ * @api {get} /finins/login/:name/:password  登录金融机构
+ * @apiDescription 登录金融机构
+ * @apiName loginfin
+ * @apiGroup fin
+ * @apiParam {string} name 金融机构名称
+ * @apiParam {string} password 金融机构密码
+ * @apiSampleRequest http://localhost:4000/finins/login/:name/:password
+ * @apiVersion 1.0.0
+ */
 router.get('/login/:name/:password',function(req,res){
   const plaintext = req.params.name+req.params.password
   let ID=utils.encrypted(encryptedPassword,SALT)
@@ -48,6 +66,16 @@ router.get('/login/:name/:password',function(req,res){
 
 
 // query company
+
+/**
+ * @api {get} /finins/fetchfinins/:id  查询金融机构
+ * @apiDescription 查询金融机构
+ * @apiName querryfin
+ * @apiGroup fin
+ * @apiParam {string} id 金融机构ID
+ * @apiSampleRequest http://localhost:4000/finins/fetchfinins/:id
+ * @apiVersion 1.0.0
+ */
 router.get('/fetchfinins/:id',function(req,res){
   const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[req.params.id])
   results.then(data=>{

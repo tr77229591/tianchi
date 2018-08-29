@@ -7,9 +7,15 @@ let router = express.Router()
 
 
 /**
-@api {post} /newbalancesheet
-@apiParam {string} name
-*/
+ * @api {get} /offer/newoffer  提交金融机构报价
+ * @apiDescription 提交金融机构
+ * @apiName newoffer
+ * @apiGroup offer
+ * @apiParam {string} loanAmount 放款金额
+ * @apiParam {string} interestRate 利率
+ * @apiSampleRequest http://localhost:4000/offer/newoffer 
+ * @apiVersion 1.0.0
+ */
 router.post('/newoffer',function(req,res){
   const {loanAmount,interestRate} = req.body
   let ID=utils.createID()
@@ -22,6 +28,16 @@ router.post('/newoffer',function(req,res){
 
 
 // fetchbid
+
+/**
+ * @api {get} /offer/fetchoffer/:id  查询金融机构报价
+ * @apiDescription 查询金融机构
+ * @apiName querryoffer
+ * @apiGroup offer
+ * @apiParam {string} id 金融机构报价ID
+ * @apiSampleRequest http://localhost:4000/offer/fetchoffer/:id 
+ * @apiVersion 1.0.0
+ */
 router.get('/fetchoffer/:id',function(req,res){
   const plaintext = req.params.id
 

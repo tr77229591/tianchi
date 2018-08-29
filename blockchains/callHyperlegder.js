@@ -62,7 +62,7 @@ module.exports.queryChain = async function(client,channel,chaincodeID,fcn,args){
   }
   let [err, result] = await to(channel.queryByChaincode(query))
   if(err){
-    return {error:"error occurs in queryChain:"+err}
+    throw {error:"error occurs in queryChain:"+err}
   }
     return result.toString()
 
