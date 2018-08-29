@@ -1,0 +1,191 @@
+version: 1.0.0
+peers:
+  peer1.bank.aliyunbaas.com:31111:
+    url: grpcs://peer1.bank.aliyunbaas.com:31111
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICITCCAcegAwIBAgIUCntlRVEE2ErGFeJTZXv/XNbm+SMwCgYIKoZIzj0EAwIw
+        bTELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFpoZWppYW5nMREwDwYDVQQHEwhIYW5n
+        emhvdTEWMBQGA1UEChMNQWxpYmFiYSBDbG91ZDEgMB4GA1UEAxMXRmFicmljLUNB
+        IFRMUyBSb290IENlcnQwHhcNMTgwODIwMDU0NDAwWhcNMzgwODE1MDU0NDAwWjBt
+        MQswCQYDVQQGEwJDTjERMA8GA1UECBMIWmhlamlhbmcxETAPBgNVBAcTCEhhbmd6
+        aG91MRYwFAYDVQQKEw1BbGliYWJhIENsb3VkMSAwHgYDVQQDExdGYWJyaWMtQ0Eg
+        VExTIFJvb3QgQ2VydDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABLMvNpaBHxif
+        UOfCHBkHm2uUfJ/QaoEYW4wotFx/0YggcIyBunO/PL5RiOsS9So+pVhsMrXfAUqJ
+        0GxwjDYEZp6jRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEB
+        MB0GA1UdDgQWBBSC4yvNFUMKVroNEE5WFScZEDFQojAKBggqhkjOPQQDAgNIADBF
+        AiEA6ACg9gHvqLm7WZ3xNteX/YstrGUrD3gZ3Aqu5Vo5EF4CIDJpDZH7hJx8XCSV
+        2nGpFu805uEWvP90XCZY2cSW8H+g
+        -----END CERTIFICATE-----
+    grpcOptions:
+      allow-insecure: false
+      fail-fast: false
+      keep-alive-permit: false
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      ssl-target-name-override: peer1.bank.aliyunbaas.com
+    eventUrl: grpcs://peer1.bank.aliyunbaas.com:31113
+  peer2.bank.aliyunbaas.com:31121:
+    url: grpcs://peer2.bank.aliyunbaas.com:31121
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICITCCAcegAwIBAgIUCntlRVEE2ErGFeJTZXv/XNbm+SMwCgYIKoZIzj0EAwIw
+        bTELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFpoZWppYW5nMREwDwYDVQQHEwhIYW5n
+        emhvdTEWMBQGA1UEChMNQWxpYmFiYSBDbG91ZDEgMB4GA1UEAxMXRmFicmljLUNB
+        IFRMUyBSb290IENlcnQwHhcNMTgwODIwMDU0NDAwWhcNMzgwODE1MDU0NDAwWjBt
+        MQswCQYDVQQGEwJDTjERMA8GA1UECBMIWmhlamlhbmcxETAPBgNVBAcTCEhhbmd6
+        aG91MRYwFAYDVQQKEw1BbGliYWJhIENsb3VkMSAwHgYDVQQDExdGYWJyaWMtQ0Eg
+        VExTIFJvb3QgQ2VydDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABLMvNpaBHxif
+        UOfCHBkHm2uUfJ/QaoEYW4wotFx/0YggcIyBunO/PL5RiOsS9So+pVhsMrXfAUqJ
+        0GxwjDYEZp6jRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEB
+        MB0GA1UdDgQWBBSC4yvNFUMKVroNEE5WFScZEDFQojAKBggqhkjOPQQDAgNIADBF
+        AiEA6ACg9gHvqLm7WZ3xNteX/YstrGUrD3gZ3Aqu5Vo5EF4CIDJpDZH7hJx8XCSV
+        2nGpFu805uEWvP90XCZY2cSW8H+g
+        -----END CERTIFICATE-----
+    grpcOptions:
+      allow-insecure: false
+      fail-fast: false
+      keep-alive-permit: false
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      ssl-target-name-override: peer2.bank.aliyunbaas.com
+    eventUrl: grpcs://peer2.bank.aliyunbaas.com:31123
+organizations:
+  bankMSP:
+    peers:
+    - peer1.bank.aliyunbaas.com:31111
+    - peer2.bank.aliyunbaas.com:31121
+    mspid: bankMSP
+    cryptoPath: /tmp/msp
+    certificateAuthorities:
+    - ca1.bank.aliyunbaas.com
+orderers:
+  orderer1:
+    url: grpcs://orderer1.ddg.aliyunbaas.com:31010
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICADCCAaegAwIBAgIUDSwu1PJUzfC8gyAFw/OCLLhKLLYwCgYIKoZIzj0EAwIw
+        XTELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFpoZWppYW5nMREwDwYDVQQHEwhIYW5n
+        emhvdTEMMAoGA1UEChMDZGRnMRowGAYDVQQDExFkZGcgVExTIFJvb3QgQ2VydDAe
+        Fw0xODA4MjAwNTQ4MDBaFw0zODA4MTUwNTQ4MDBaMF0xCzAJBgNVBAYTAkNOMREw
+        DwYDVQQIEwhaaGVqaWFuZzERMA8GA1UEBxMISGFuZ3pob3UxDDAKBgNVBAoTA2Rk
+        ZzEaMBgGA1UEAxMRZGRnIFRMUyBSb290IENlcnQwWTATBgcqhkjOPQIBBggqhkjO
+        PQMBBwNCAARtCEWCKjzBgBo2fbZHrqi33VlzU1FEinYkoJaJoF6KEuTbHDb/PH2e
+        7UtvkC3lVupOQL9fsnG/uqa4bXNbQ4zBo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYD
+        VR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4EFgQUhv4sHivB4ve/dynPsRc6/AIZ0ZYw
+        CgYIKoZIzj0EAwIDRwAwRAIgDdiassuczyAzZmXpBykVWI0VcmmCa1uohoSJu4Ja
+        bHACICXvTmi/9yfOcerZOv9Is+SnBhjeBtMddqPHcgquS9Ps
+        -----END CERTIFICATE-----
+    grpcOptions:
+      allow-insecure: false
+      fail-fast: false
+      keep-alive-permit: false
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      ssl-target-name-override: orderer1.ddg.aliyunbaas.com
+  orderer2:
+    url: grpcs://orderer2.ddg.aliyunbaas.com:31020
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICADCCAaegAwIBAgIUDSwu1PJUzfC8gyAFw/OCLLhKLLYwCgYIKoZIzj0EAwIw
+        XTELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFpoZWppYW5nMREwDwYDVQQHEwhIYW5n
+        emhvdTEMMAoGA1UEChMDZGRnMRowGAYDVQQDExFkZGcgVExTIFJvb3QgQ2VydDAe
+        Fw0xODA4MjAwNTQ4MDBaFw0zODA4MTUwNTQ4MDBaMF0xCzAJBgNVBAYTAkNOMREw
+        DwYDVQQIEwhaaGVqaWFuZzERMA8GA1UEBxMISGFuZ3pob3UxDDAKBgNVBAoTA2Rk
+        ZzEaMBgGA1UEAxMRZGRnIFRMUyBSb290IENlcnQwWTATBgcqhkjOPQIBBggqhkjO
+        PQMBBwNCAARtCEWCKjzBgBo2fbZHrqi33VlzU1FEinYkoJaJoF6KEuTbHDb/PH2e
+        7UtvkC3lVupOQL9fsnG/uqa4bXNbQ4zBo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYD
+        VR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4EFgQUhv4sHivB4ve/dynPsRc6/AIZ0ZYw
+        CgYIKoZIzj0EAwIDRwAwRAIgDdiassuczyAzZmXpBykVWI0VcmmCa1uohoSJu4Ja
+        bHACICXvTmi/9yfOcerZOv9Is+SnBhjeBtMddqPHcgquS9Ps
+        -----END CERTIFICATE-----
+    grpcOptions:
+      allow-insecure: false
+      fail-fast: false
+      keep-alive-permit: false
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      ssl-target-name-override: orderer2.ddg.aliyunbaas.com
+  orderer3:
+    url: grpcs://orderer3.ddg.aliyunbaas.com:31030
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICADCCAaegAwIBAgIUDSwu1PJUzfC8gyAFw/OCLLhKLLYwCgYIKoZIzj0EAwIw
+        XTELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFpoZWppYW5nMREwDwYDVQQHEwhIYW5n
+        emhvdTEMMAoGA1UEChMDZGRnMRowGAYDVQQDExFkZGcgVExTIFJvb3QgQ2VydDAe
+        Fw0xODA4MjAwNTQ4MDBaFw0zODA4MTUwNTQ4MDBaMF0xCzAJBgNVBAYTAkNOMREw
+        DwYDVQQIEwhaaGVqaWFuZzERMA8GA1UEBxMISGFuZ3pob3UxDDAKBgNVBAoTA2Rk
+        ZzEaMBgGA1UEAxMRZGRnIFRMUyBSb290IENlcnQwWTATBgcqhkjOPQIBBggqhkjO
+        PQMBBwNCAARtCEWCKjzBgBo2fbZHrqi33VlzU1FEinYkoJaJoF6KEuTbHDb/PH2e
+        7UtvkC3lVupOQL9fsnG/uqa4bXNbQ4zBo0UwQzAOBgNVHQ8BAf8EBAMCAQYwEgYD
+        VR0TAQH/BAgwBgEB/wIBATAdBgNVHQ4EFgQUhv4sHivB4ve/dynPsRc6/AIZ0ZYw
+        CgYIKoZIzj0EAwIDRwAwRAIgDdiassuczyAzZmXpBykVWI0VcmmCa1uohoSJu4Ja
+        bHACICXvTmi/9yfOcerZOv9Is+SnBhjeBtMddqPHcgquS9Ps
+        -----END CERTIFICATE-----
+    grpcOptions:
+      allow-insecure: false
+      fail-fast: false
+      keep-alive-permit: false
+      keep-alive-time: 0s
+      keep-alive-timeout: 20s
+      ssl-target-name-override: orderer3.ddg.aliyunbaas.com
+name: Aliyun-Baas-Config
+description: The network generated by aliyun BaaS.
+client:
+  organization: bankMSP
+  logging:
+    level: info
+  credentialStore:
+    path: /tmp/msp/signcerts
+    cryptoStore:
+      path: /tmp/msp
+  BCCSP:
+    security:
+      default:
+        provider: SW
+      level: 256
+      softVerify: true
+      enabled: true
+      hashAlgorithm: SHA2
+channels:
+  first-channel:
+    peers:
+      peer1.bank.aliyunbaas.com:31111:
+        chaincodeQuery: true
+        endorsingPeer: true
+        eventSource: true
+        ledgerQuery: true
+      peer2.bank.aliyunbaas.com:31121:
+        chaincodeQuery: true
+        endorsingPeer: true
+        eventSource: true
+        ledgerQuery: true
+    orderers:
+    - orderer1
+    - orderer2
+    - orderer3
+certificateAuthorities:
+  ca1.bank.aliyunbaas.com:
+    url: https://ca1.bank.aliyunbaas.com:31154
+    tlsCACerts:
+      pem: |
+        -----BEGIN CERTIFICATE-----
+        MIICITCCAcegAwIBAgIUCntlRVEE2ErGFeJTZXv/XNbm+SMwCgYIKoZIzj0EAwIw
+        bTELMAkGA1UEBhMCQ04xETAPBgNVBAgTCFpoZWppYW5nMREwDwYDVQQHEwhIYW5n
+        emhvdTEWMBQGA1UEChMNQWxpYmFiYSBDbG91ZDEgMB4GA1UEAxMXRmFicmljLUNB
+        IFRMUyBSb290IENlcnQwHhcNMTgwODIwMDU0NDAwWhcNMzgwODE1MDU0NDAwWjBt
+        MQswCQYDVQQGEwJDTjERMA8GA1UECBMIWmhlamlhbmcxETAPBgNVBAcTCEhhbmd6
+        aG91MRYwFAYDVQQKEw1BbGliYWJhIENsb3VkMSAwHgYDVQQDExdGYWJyaWMtQ0Eg
+        VExTIFJvb3QgQ2VydDBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABLMvNpaBHxif
+        UOfCHBkHm2uUfJ/QaoEYW4wotFx/0YggcIyBunO/PL5RiOsS9So+pVhsMrXfAUqJ
+        0GxwjDYEZp6jRTBDMA4GA1UdDwEB/wQEAwIBBjASBgNVHRMBAf8ECDAGAQH/AgEB
+        MB0GA1UdDgQWBBSC4yvNFUMKVroNEE5WFScZEDFQojAKBggqhkjOPQQDAgNIADBF
+        AiEA6ACg9gHvqLm7WZ3xNteX/YstrGUrD3gZ3Aqu5Vo5EF4CIDJpDZH7hJx8XCSV
+        2nGpFu805uEWvP90XCZY2cSW8H+g
+        -----END CERTIFICATE-----
+    caName: client

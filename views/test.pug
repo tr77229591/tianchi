@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+ head
+   title Pug
+ body
+   h1 Pug Examples
+   div.container
+     form(action="/enterprise/newEnterprise", method="post")
+        input(type='text', name='name')
+        | name
+        input(type='text', name='color')
+        | color
+        input(type='text', name='size')
+        | size
+        input(type='text', name='owner')
+        | owner
+        input(type='submit', value="submit")
+        block content
