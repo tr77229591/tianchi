@@ -11,20 +11,19 @@ let router = express.Router()
  * @apiName newbalancesheet
  * @apiGroup balancesheet
  * @apiParam {string} lrfs 法人代表家族史
- * @apiParam {string} actualControllers 实际控制人列表
+ * @apiParam {[]string} actualControllers 实际控制人列表List
  * @apiSampleRequest http://localhost:4000/balancesheet/newbalancesheet
  * @apiVersion 1.0.0
  */
 router.post('/newbalancesheet',function(req,res){
-  const {lrfs,actualControllers} = req.body
-  const plaintext = lrfs
-  let ID=utils.encrypted(plaintext,SALT)
-  let encryptedPassword=utils.encrypted(owner,SALT)
-  let results = utils.asyncInvoke(CHAINCODE_ID,"initMarble",[name, ID,size,encryptedPassword])
+  let {id,lrfs,actualControllers} = req.body
+  actualControllers = actualControllers.split(",").join(`\","`)
+  const request = "{\"id\":\""+id+"\",\"LRFS\":\"\",\"actualControllers\":[\""+actualControllers+"\"]}"
+  let results = utils.asyncInvoke(CHAINCODE_ID,"addBalanceSheet",[request])
   results.then(data=>{
-      res.send({code:1,payload:"Successfully register new finiancial institution"})
+      res.send({code:1,payload:"Successfully register new balancesheet"})
     })
-    .catch(err=>res.status(400).send({error:"create finiancial institution fail "+ err}))
+    .catch(err=>res.status(400).send({error:"create balancesheet fail "+ err}))
   })
 
 
@@ -34,43 +33,20 @@ router.post('/newbalancesheet',function(req,res){
  * @apiDescription 获得资产负债表信息
  * @apiName getbalancesheet
  * @apiGroup balancesheet
- * @apiParam {string} lrfs 法人代表家族史
+ * @apiParam {string} id 资产负债表id
  * @apiSampleRequest http://localhost:4000/balancesheet/fetchbalancesheet/:id
  * @apiVersion 1.0.0
  */
-router.get('/fetchbalancesheet/:lrfs',function(req,res){
-  const plaintext = req.params.lrfs
-  let ID=utils.encrypted(encryptedPassword,SALT)
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[ID])
-  results.then(data=>{
-    data = JSON.parse(data)
-    let decryptedPassword=utils.decrypted(ID,SALT)
-    if(decryptedPassword===plaintext){
-      res.cookie('id',data.ID)
-      res.send({code:1,payload:data})
-    }
-    else{
-      res.send({error:"name is incorrect"})
-    }
-        })
-        .catch(err=>res.send({
-          error:err
-        }))
-  })
+ router.get('/fetchbalancesheet/:id',function(req,res){
+   const results= utils.asyncQuery(CHAINCODE_ID,'query',[req.params.id])
+   results.then(data=>{
+     data = JSON.parse(data)
+       res.send({code:1,payload:data})
+     }).catch(err=>{
+       res.send({error:"doesnt exist:"+err})
+     })
+   })
 
-
-
-
-// // query company
-// router.get('/fetchfinins/:id',function(req,res){
-//   const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[req.params.id])
-//   results.then(data=>{
-//     data = JSON.parse(data)
-//       res.send({code:1,payload:data})
-//     }).catch(err=>{
-//       res.send({error:"doesnt exist:"+err})
-//     })
-//   })
 
 
 

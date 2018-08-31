@@ -27,11 +27,9 @@ let router = express.Router()
  * @apiVersion 1.0.0
  */
 router.post('/newproject',function(req,res){
-  const {name,description,coreFirm,updownFirm,progress,bidInfo,winnerFI,creditLimit,usedLimit,capitalFlow,cargoFlow,ddr} = req.body
-  const plaintext = name
-  let ID=utils.encrypted(plaintext,SALT)
-  let encryptedPassword=utils.encrypted(owner,SALT)
-  let results = utils.asyncInvoke(CHAINCODE_ID,"initMarble",[name, ID,size,encryptedPassword])
+  const {id,name,description,coreFirm,updownFirm,progress,bidInfo,winnerFI,creditLimit,usedLimit,capitalFlow,cargoFlow,ddr} = req.body
+  const request="{\"id\":\""+id+"\",\"name\":\""+name+"\",\"description\":\""+description+"\",\"ddr\":\"\",\"coreFirm\":[],\"updownFirm\":[],\"progress\":{},\"bidInfo\":\"\",\"winnerFI\":\"\",\"creditLimit\":0,\"usedLimit\":0,\"capitalFlow\":{},\"cargoFlow\":{}}"
+  let results = utils.asyncInvoke(CHAINCODE_ID,"addProject",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new finiancial institution"})
     })
@@ -42,47 +40,27 @@ router.post('/newproject',function(req,res){
 // login finiancial institution
 
 /**
- * @api {get} /project/fetchproject/:name  查询项目
+ * @api {get} /project/fetchproject/:id  查询项目
  * @apiDescription 查询项目
  * @apiName querryproject
  * @apiGroup project
- * @apiParam {string} name 项目名称
- * @apiSampleRequest http://localhost:4000/project/fetchproject/:name 
+ * @apiParam {string} id 项目id
+ * @apiSampleRequest http://localhost:4000/project/fetchproject/:id
  * @apiVersion 1.0.0
  */
-router.get('/fetchproject/:name',function(req,res){
-  const plaintext = req.params.name
-  let ID=utils.encrypted(plaintext,SALT)
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[ID])
+
+
+router.get('/fetchproject/:id',function(req,res){
+  const results= utils.asyncQuery(CHAINCODE_ID,'query',[req.params.id])
   results.then(data=>{
     data = JSON.parse(data)
-    let decryptedPassword=utils.decrypted(ID,SALT)
-    if(decryptedPassword===plaintext){
-      res.cookie('id',data.ID)
       res.send({code:1,payload:data})
-    }
-    else{
-      res.send({error:"name is incorrect"})
-    }
-        })
-        .catch(err=>res.send({
-          error:err
-        }))
+    }).catch(err=>{
+      res.send({error:"doesnt exist:"+err})
+    })
   })
 
 
-
-
-// // query company
-// router.get('/fetchfinins/:id',function(req,res){
-//   const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[req.params.id])
-//   results.then(data=>{
-//     data = JSON.parse(data)
-//       res.send({code:1,payload:data})
-//     }).catch(err=>{
-//       res.send({error:"doesnt exist:"+err})
-//     })
-//   })
 
 
 

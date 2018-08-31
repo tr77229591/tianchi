@@ -21,8 +21,10 @@ router.post('/newfin',function(req,res){
   const {name,address,password} = req.body
   const plaintext = name+password
   let ID=utils.encrypted(plaintext,SALT)
-  let encryptedPassword=utils.encrypted(owner,SALT)
-  let results = utils.asyncInvoke(CHAINCODE_ID,"initMarble",[name, ID,size,encryptedPassword])
+  const request = "{\"id\":\""+ID+"\",\"name\":\""+name+"\",\"address\":\""+address+"\",\"projectInvolvement\":[]}"
+  // console.log(request)
+  // const request2case="{\"id\":\"FIx1\",\"name\":\"中国银行\",\"address\":\"故宫里头\",\"projectInvolvement\":[]}"
+  let results = utils.asyncInvoke(CHAINCODE_ID,"addFI",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new finiancial institution"})
     })
@@ -33,19 +35,19 @@ router.post('/newfin',function(req,res){
 // login finiancial institution
 
 /**
- * @api {get} /finins/login/:name/:password  登录金融机构
+ * @api {post} /finins/login/  登录金融机构
  * @apiDescription 登录金融机构
  * @apiName loginfin
  * @apiGroup fin
  * @apiParam {string} name 金融机构名称
  * @apiParam {string} password 金融机构密码
- * @apiSampleRequest http://localhost:4000/finins/login/:name/:password
+ * @apiSampleRequest http://localhost:4000/finins/login/
  * @apiVersion 1.0.0
  */
-router.get('/login/:name/:password',function(req,res){
-  const plaintext = req.params.name+req.params.password
-  let ID=utils.encrypted(encryptedPassword,SALT)
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[ID])
+router.post('/login/',function(req,res){
+  const plaintext = req.body.name+req.body.password
+  let ID=utils.encrypted(plaintext,SALT)
+  const results= utils.asyncQuery(CHAINCODE_ID,'query',[ID])
   results.then(data=>{
     data = JSON.parse(data)
     let decryptedPassword=utils.decrypted(ID,SALT)
@@ -77,7 +79,7 @@ router.get('/login/:name/:password',function(req,res){
  * @apiVersion 1.0.0
  */
 router.get('/fetchfinins/:id',function(req,res){
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[req.params.id])
+  const results= utils.asyncQuery(CHAINCODE_ID,'query',[req.params.id])
   results.then(data=>{
     data = JSON.parse(data)
       res.send({code:1,payload:data})

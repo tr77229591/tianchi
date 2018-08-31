@@ -12,6 +12,7 @@ let router = express.Router()
  * @apiDescription 发起招标
  * @apiName newbid
  * @apiGroup Bid
+ * @apiParam {string} id id
  * @apiParam {string} startDate 发起时间
  * @apiParam {string} endDate 结束时间
  * @apiParam {string} project 所属项目
@@ -22,13 +23,14 @@ let router = express.Router()
  * @apiVersion 1.0.0
  */
 router.post('/newbid',function(req,res){
-  const {startDate,endDate,project,involvedFIs,offers,winnerFI} = req.body
-  let ID=utils.createID()
-  let results = utils.asyncInvoke(CHAINCODE_ID,"initMarble",[name, ID,size,encryptedPassword])
+  let {id,startDate,endDate,project,involvedFIs,offers,winnerFI} = req.body
+  involvedFIs = involvedFIs.split(",").join(`\","`)
+  const request = "{\"id\":\""+id+"\",\"startDate\":\""+startDate+"\",\"endDate\":\""+endDate+"\",\"project\":\""+project+"\",\"involvedFIs\":[\""+involvedFIs+"\"],\"offers\":{},\"winnerFI\":\"\"}"
+  let results = utils.asyncInvoke(CHAINCODE_ID,"addBid",[request])
   results.then(data=>{
-      res.send({code:1,payload:"Successfully register new finiancial institution"})
+      res.send({code:1,payload:"Successfully register new bid"})
     })
-    .catch(err=>res.status(400).send({error:"create finiancial institution fail "+ err}))
+    .catch(err=>res.status(400).send({error:"create bid fail "+ err}))
   })
 
 
@@ -42,39 +44,15 @@ router.post('/newbid',function(req,res){
  * @apiSampleRequest http://localhost:4000/bid/fetchbid/:id
  * @apiVersion 1.0.0
  */
-router.get('/fetchbid/:id',function(req,res){
-  const plaintext = req.params.id
-
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[plaintext])
-  results.then(data=>{
-    data = JSON.parse(data)
-    if(data.id===plaintext){
-      res.cookie('id',data.ID)
-      res.send({code:1,payload:data})
-    }
-    else{
-      res.send({error:"id is incorrect"})
-    }
-        })
-        .catch(err=>res.send({
-          error:err
-        }))
-  })
-
-
-
-
-// // query company
-// router.get('/fetchfinins/:id',function(req,res){
-//   const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[req.params.id])
-//   results.then(data=>{
-//     data = JSON.parse(data)
-//       res.send({code:1,payload:data})
-//     }).catch(err=>{
-//       res.send({error:"doesnt exist:"+err})
-//     })
-//   })
-
+ router.get('/fetchbid/:id',function(req,res){
+   const results= utils.asyncQuery(CHAINCODE_ID,'query',[req.params.id])
+   results.then(data=>{
+     data = JSON.parse(data)
+       res.send({code:1,payload:data})
+     }).catch(err=>{
+       res.send({error:"doesnt exist:"+err})
+     })
+   })
 
 
 

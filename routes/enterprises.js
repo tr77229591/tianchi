@@ -11,24 +11,25 @@ let router = express.Router()
  * @apiDescription 新增一个企业
  * @apiName addCompany
  * @apiGroup Compangy
- * @apiParam {string} name 用户名
+ * @apiParam {string} username user_name
+ * @apiParam {string} password 用户密码
+ * @apiParam {string} name Company_name
  * @apiParam {string} legalPersonality 法人代表
  * @apiParam {string} registeredCaptial 注册资本
  * @apiParam {string} dateOfEstablishment 成立日期
  * @apiParam {string} businessScope 营业范围
  * @apiParam {string} basicFIName 基本开户银行名称
  * @apiParam {string} basicFIAccount 基本开户银行账号
- * @apiParam {string} password 用户密码
 
  * @apiSampleRequest http://localhost:4000/enterprises/newenterprise
  * @apiVersion 1.0.0
  */
 router.post('/newenterprise',function(req,res){
-  const {name,legalPersonality,registeredCaptial,dateOfEstablishment,businessScope,basicFIName,basicFIAccount,password} = req.body
-  const plaintext = name+password
+  const {username,password,name,legalPersonality,registeredCaptial,dateOfEstablishment,businessScope,basicFIName,basicFIAccount,projectInvolvement} = req.body
+  const plaintext = username+password
   let ID=utils.encrypted(plaintext,SALT)
-  let encryptedPassword=utils.encrypted(owner,SALT)
-  let results = utils.asyncInvoke(CHAINCODE_ID,"initMarble",[name, ID,size,encryptedPassword])
+  const request ="{\"id\":\""+ID+"\",\"name\":\""+name+"\",\"legalPersonality\":\""+legalPersonality+"\",\"registeredCapital\":\""+registeredCaptial+"\",\"dateOfEstablishment\":\""+dateOfEstablishment+"\",\"businessScope\":\""+businessScope+"\",\"basicFIName\":\""+basicFIName+"\",\"basicFIAccount\":\""+basicFIAccount+"\",\"projectInvolvement\":[]}"
+  let results = utils.asyncInvoke(CHAINCODE_ID,"addEnterprise",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new enterprise"})
     })
@@ -43,21 +44,21 @@ router.post('/newenterprise',function(req,res){
  * @apiDescription 企业登录
  * @apiName login
  * @apiGroup Compangy
- * @apiParam {string} name 企业名称
+ * @apiParam {string} username 企业名称
  * @apiParam {string} password 企业密码
  * @apiSampleRequest http://localhost:4000/enterprises/login/:name/:password
  * @apiVersion 1.0.0
  */
-router.get('/login/:name/:password',function(req,res){
-  const plaintext = req.params.name+req.params.password
-  let ID=utils.encrypted(encryptedPassword,SALT)
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[ID])
+router.post('/login/',function(req,res){
+  const plaintext = req.body.username+req.body.password
+  let ID=utils.encrypted(plaintext,SALT)
+  const results= utils.asyncQuery(CHAINCODE_ID,'query',[ID])
   // const results= asyncQuery(CHAINCODE_ID,'readMarble',[ID])
   results.then(data=>{
     data = JSON.parse(data)
     let decryptedPassword=utils.decrypted(ID,SALT)
     if(decryptedPassword===plaintext){
-      res.cookie('id',data.ID)
+      res.cookie('id',ID)
       res.send({code:1,payload:data})
     }
     else{
@@ -84,7 +85,7 @@ router.get('/login/:name/:password',function(req,res){
  * @apiVersion 1.0.0
  */
 router.get('/fetchcompany/:id',function(req,res){
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[req.params.id])
+  const results= utils.asyncQuery(CHAINCODE_ID,'query',[req.params.id])
   results.then(data=>{
     data = JSON.parse(data)
       res.send({code:1,payload:data})

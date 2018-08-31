@@ -9,7 +9,7 @@ let ddr = require('./routes/ddr.js')
 let balanceSheet =require('./routes/balancesheet.js')
 let bid = require('./routes/bid.js')
 let offer = require('./routes/offer.js')
-
+let update = require('./routes/update.js')
 
 
 let path = require("path")
@@ -49,6 +49,7 @@ app.use('/ddr',ddr)
 app.use('/balanceSheet',balanceSheet)
 app.use('/bid',bid)
 app.use('/offer',offer)
+app.use('/update',update)
 
 
 

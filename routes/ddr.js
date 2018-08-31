@@ -17,61 +17,41 @@ let router = express.Router()
  * @apiVersion 1.0.0
  */
 router.post('/newddr',function(req,res){
-  const {balanceSheet,description} = req.body
-  const plaintext = name
-  let ID=utils.encrypted(plaintext,SALT)
-  let encryptedPassword=utils.encrypted(owner,SALT)
-  let results = utils.asyncInvoke(CHAINCODE_ID,"initMarble",[name, ID,size,encryptedPassword])
+  const {id,balanceSheet,description} = req.body
+
+  const request = "{\"id\":\""+id+"\",\"balanceSheet\":\"\",\"description\":\""+description+"\"}"
+  let results = utils.asyncInvoke(CHAINCODE_ID,"addDDR",[request])
   results.then(data=>{
-      res.send({code:1,payload:"Successfully register new finiancial institution"})
+      res.send({code:1,payload:"Successfully register new ddr "})
     })
-    .catch(err=>res.status(400).send({error:"create finiancial institution fail "+ err}))
+    .catch(err=>res.status(400).send({error:"create ddr fail "+ err}))
   })
 
 
 // fetchddr
 /**
- * @api {get} /ddr/fetchddr/:name  查询尽职报告调查
+ * @api {get} /ddr/fetchddr/:id  查询尽职报告调查
  * @apiDescription 查询尽职报告调查
  * @apiName querryddr
  * @apiGroup ddr
- * @apiParam {string} name 资产负债ID
- * @apiSampleRequest http://localhost:4000/ddr/fetchddr/:name
+ * @apiParam {string} id 资产负债ID
+ * @apiSampleRequest http://localhost:4000/ddr/fetchddr/:id
  * @apiVersion 1.0.0
  */
-router.get('/fetchddr/:name',function(req,res){
-  const plaintext = req.params.name
-  let ID=utils.encrypted(encryptedPassword,SALT)
-  const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[ID])
-  results.then(data=>{
-    data = JSON.parse(data)
-    let decryptedPassword=utils.decrypted(ID,SALT)
-    if(decryptedPassword===plaintext){
-      res.cookie('id',data.ID)
-      res.send({code:1,payload:data})
-    }
-    else{
-      res.send({error:"name is incorrect"})
-    }
-        })
-        .catch(err=>res.send({
-          error:err
-        }))
-  })
+ router.get('/fetchddr/:id',function(req,res){
+   const results= utils.asyncQuery(CHAINCODE_ID,'query',[req.params.id])
+   results.then(data=>{
+     data = JSON.parse(data)
+       res.send({code:1,payload:data})
+     }).catch(err=>{
+       res.send({error:"doesnt exist:"+err})
+     })
+   })
 
 
 
 
-// // query company
-// router.get('/fetchfinins/:id',function(req,res){
-//   const results= utils.asyncQuery(CHAINCODE_ID,'readMarble',[req.params.id])
-//   results.then(data=>{
-//     data = JSON.parse(data)
-//       res.send({code:1,payload:data})
-//     }).catch(err=>{
-//       res.send({error:"doesnt exist:"+err})
-//     })
-//   })
+
 
 
 
