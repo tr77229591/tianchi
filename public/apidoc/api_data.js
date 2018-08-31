@@ -42,6 +42,13 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
+            "field": "id",
+            "description": "<p>id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
             "field": "startDate",
             "description": "<p>发起时间</p>"
           },
@@ -106,8 +113,22 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
+            "field": "username",
+            "description": "<p>user_name</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>用户密码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
             "field": "name",
-            "description": "<p>用户名</p>"
+            "description": "<p>Company_name</p>"
           },
           {
             "group": "Parameter",
@@ -150,13 +171,6 @@ define({ "api": [
             "optional": false,
             "field": "basicFIAccount",
             "description": "<p>基本开户银行账号</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "password",
-            "description": "<p>用户密码</p>"
           }
         ]
       }
@@ -184,7 +198,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "name",
+            "field": "username",
             "description": "<p>企业名称</p>"
           },
           {
@@ -249,8 +263,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "lrfs",
-            "description": "<p>法人代表家族史</p>"
+            "field": "id",
+            "description": "<p>资产负债表id</p>"
           }
         ]
       }
@@ -283,10 +297,10 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "[]string",
             "optional": false,
             "field": "actualControllers",
-            "description": "<p>实际控制人列表</p>"
+            "description": "<p>实际控制人列表List</p>"
           }
         ]
       }
@@ -338,7 +352,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/ddr/fetchddr/:name",
+    "url": "/ddr/fetchddr/:id",
     "title": "查询尽职报告调查",
     "description": "<p>查询尽职报告调查</p>",
     "name": "querryddr",
@@ -350,7 +364,7 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "name",
+            "field": "id",
             "description": "<p>资产负债ID</p>"
           }
         ]
@@ -358,7 +372,7 @@ define({ "api": [
     },
     "sampleRequest": [
       {
-        "url": "http://localhost:4000/ddr/fetchddr/:name"
+        "url": "http://localhost:4000/ddr/fetchddr/:id"
       }
     ],
     "version": "1.0.0",
@@ -366,8 +380,8 @@ define({ "api": [
     "groupTitle": "ddr"
   },
   {
-    "type": "get",
-    "url": "/finins/login/:name/:password",
+    "type": "post",
+    "url": "/finins/login/",
     "title": "登录金融机构",
     "description": "<p>登录金融机构</p>",
     "name": "loginfin",
@@ -394,7 +408,7 @@ define({ "api": [
     },
     "sampleRequest": [
       {
-        "url": "http://localhost:4000/finins/login/:name/:password"
+        "url": "http://localhost:4000/finins/login/"
       }
     ],
     "version": "1.0.0",
@@ -483,6 +497,13 @@ define({ "api": [
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id</p>"
+          },
           {
             "group": "Parameter",
             "type": "string",
@@ -646,7 +667,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/project/fetchproject/:name",
+    "url": "/project/fetchproject/:id",
     "title": "查询项目",
     "description": "<p>查询项目</p>",
     "name": "querryproject",
@@ -658,15 +679,15 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "name",
-            "description": "<p>项目名称</p>"
+            "field": "id",
+            "description": "<p>项目id</p>"
           }
         ]
       }
     },
     "sampleRequest": [
       {
-        "url": "http://localhost:4000/project/fetchproject/:name"
+        "url": "http://localhost:4000/project/fetchproject/:id"
       }
     ],
     "version": "1.0.0",
