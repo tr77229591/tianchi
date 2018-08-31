@@ -101,6 +101,62 @@
   },
   {
     "type": "post",
+    "url": "/update",
+    "title": "更新内容",
+    "description": "<p>所有字段均在此处更新</p>",
+    "name": "update",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "structName",
+            "description": "<p>需要更新的模块名称，例如企业模块Enterprise, 金融机构模块FI等</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>对应要更新内容的id号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "json",
+            "optional": false,
+            "field": "stringifyArgument",
+            "description": "<p>需要更新的内容，必须json类型，例如 {&quot;projectInvolvement&quot;:[&quot;Px6&quot;]}</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/update"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "json",
+            "optional": false,
+            "field": "json",
+            "description": "<p>返回值 成功返回值</p>"
+          }
+        ]
+      }
+    },
+    "version": "1.0.0",
+    "filename": "routes/update.js",
+    "group": "C__Users_mb755003_Desktop_tianchi_tianchi_tianchi_routes_update_js",
+    "groupTitle": "C__Users_mb755003_Desktop_tianchi_tianchi_tianchi_routes_update_js"
+  },
+  {
+    "type": "post",
     "url": "/enterprises/newenterprise",
     "title": "新增企业",
     "description": "<p>新增一个企业</p>",
@@ -213,9 +269,29 @@
     },
     "sampleRequest": [
       {
-        "url": "http://localhost:4000/enterprises/login/:name/:password"
+        "url": "http://localhost:4000/enterprises/login"
       }
     ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "json",
+            "optional": false,
+            "field": "result",
+            "description": "<p>返回当前企业所有数据.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "返回样例: ",
+          "content": "{ \n  \"code\": 1,\n  \"payload\": {\n      \"basicFIAccount\": \"10086\",\n      \"basicFIName\": \"china bank\",\n      \"businessScope\": \"game\",\n       \"dateOfEstablishment\": \"2018.08.20\",\n      \"id\": \"049f36a18084c13ea375dd7979565584\",\n      \"legalPersonality\": \"MAhuateng\",\n      \"name\": \"company1\",\n      \"projectInvolvement\": [],\n      \"registeredCapital\": \"10\"\n }",
+          "type": "json"
+        }
+      ]
+    },
     "version": "1.0.0",
     "filename": "routes/enterprises.js",
     "groupTitle": "Compangy"
@@ -310,6 +386,15 @@
         "url": "http://localhost:4000/balancesheet/newbalancesheet"
       }
     ],
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回: ",
+          "content": "{error:\"create fin fail \"}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "1.0.0",
     "filename": "routes/balancesheet.js",
     "groupTitle": "balancesheet"

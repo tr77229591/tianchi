@@ -3,7 +3,6 @@ let utils = require('../utils.js')
 const {CHAINCODE_ID,SALT} = require("../constants.js")
 let router = express.Router()
 
-// register a new company
 
 /**
  * @api {post} /balancesheet/newbalancesheet  新增资产负债表
@@ -13,6 +12,10 @@ let router = express.Router()
  * @apiParam {string} lrfs 法人代表家族史
  * @apiParam {[]string} actualControllers 实际控制人列表List
  * @apiSampleRequest http://localhost:4000/balancesheet/newbalancesheet
+
+
+ * @apiErrorExample {json} 错误返回: 
+ * {error:"create fin fail "}
  * @apiVersion 1.0.0
  */
 router.post('/newbalancesheet',function(req,res){

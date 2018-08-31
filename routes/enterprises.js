@@ -46,7 +46,22 @@ router.post('/newenterprise',function(req,res){
  * @apiGroup Compangy
  * @apiParam {string} username 企业名称
  * @apiParam {string} password 企业密码
- * @apiSampleRequest http://localhost:4000/enterprises/login/:name/:password
+ * @apiSampleRequest http://localhost:4000/enterprises/login
+ * @apiSuccess {json} result 返回当前企业所有数据.
+ * @apiSuccessExample {json} 返回样例: 
+ * { 
+ *   "code": 1,
+ *   "payload": {
+ *       "basicFIAccount": "10086",
+ *       "basicFIName": "china bank",
+ *       "businessScope": "game",
+ *        "dateOfEstablishment": "2018.08.20",
+ *       "id": "049f36a18084c13ea375dd7979565584",
+ *       "legalPersonality": "MAhuateng",
+ *       "name": "company1",
+ *       "projectInvolvement": [],
+ *       "registeredCapital": "10"
+ *  }
  * @apiVersion 1.0.0
  */
 router.post('/login/',function(req,res){
