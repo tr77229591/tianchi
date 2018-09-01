@@ -705,7 +705,7 @@
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "dictionary",
             "optional": true,
             "field": "progress",
             "description": "<p>项目进展</p>"
@@ -726,14 +726,14 @@
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "dictionary",
             "optional": true,
             "field": "capitalFlow",
             "description": "<p>资金流信息（时间+信息）</p>"
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "dictionary",
             "optional": true,
             "field": "cargoFlow",
             "description": "<p>货物流信息（时间+信息）</p>"

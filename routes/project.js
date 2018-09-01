@@ -16,11 +16,11 @@ let router = express.Router()
  * @apiParam {string} description 项目简介
  * @apiParam {string} coreFirm 核心企业列表
  * @apiParam {string} [updownFirm] 上下游企业列表
- * @apiParam {string} [progress] 项目进展
+ * @apiParam {dictionary} [progress] 项目进展
  * @apiParam {string} [bidInfo]  招标信息
  * @apiParam {string} [winnerFI] 中标金融机构
- * @apiParam {string} [capitalFlow] 资金流信息（时间+信息）
- * @apiParam {string} [cargoFlow] 货物流信息（时间+信息）
+ * @apiParam {dictionary} [capitalFlow] 资金流信息（时间+信息）
+ * @apiParam {dictionary} [cargoFlow] 货物流信息（时间+信息）
  * @apiParam {string} [creditLimit] 授信额度
  * @apiParam {string} [usedLimit] 已用额度
  * @apiParam {string} [ddr] 中标银行
