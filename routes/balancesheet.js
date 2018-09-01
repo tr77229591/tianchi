@@ -9,8 +9,8 @@ let router = express.Router()
  * @apiDescription 新增资产负债表
  * @apiName newbalancesheet
  * @apiGroup balancesheet
- * @apiParam {string} lrfs 法人代表家族史
- * @apiParam {[]string} actualControllers 实际控制人列表List
+ * @apiParam {string} [lrfs] 法人代表家族史
+ * @apiParam {list} actualControllers 实际控制人列表List
  * @apiSampleRequest http://localhost:4000/balancesheet/newbalancesheet
 
 

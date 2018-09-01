@@ -11,20 +11,22 @@ let router = express.Router()
  * @apiDescription 新增项目
  * @apiName newproject
  * @apiGroup project
+ * @apiParam {string} id 项目ID
  * @apiParam {string} name 项目名称
  * @apiParam {string} description 项目简介
  * @apiParam {string} coreFirm 核心企业列表
- * @apiParam {string} updownFirm 上下游企业列表
- * @apiParam {string} progress 项目进展
- * @apiParam {string} bidInfo  招标信息
- * @apiParam {string} winnerFI 中标金融机构
- * @apiParam {string} creditLimit 授信额度
- * @apiParam {string} usedLimit 已用额度
- * @apiParam {string} capitalFlow 资金流信息（时间+信息）
- * @apiParam {string} cargoFlow 货物流信息（时间+信息）
- * @apiParam {string} ddr 中标银行
+ * @apiParam {string} [updownFirm] 上下游企业列表
+ * @apiParam {string} [progress] 项目进展
+ * @apiParam {string} [bidInfo]  招标信息
+ * @apiParam {string} [winnerFI] 中标金融机构
+ * @apiParam {string} [capitalFlow] 资金流信息（时间+信息）
+ * @apiParam {string} [cargoFlow] 货物流信息（时间+信息）
+ * @apiParam {string} [creditLimit] 授信额度
+ * @apiParam {string} [usedLimit] 已用额度
+ * @apiParam {string} [ddr] 中标银行
  * @apiSampleRequest http://localhost:4000/project/newproject
  * @apiVersion 1.0.0
+
  */
 router.post('/newproject',function(req,res){
   const {id,name,description,coreFirm,updownFirm,progress,bidInfo,winnerFI,creditLimit,usedLimit,capitalFlow,cargoFlow,ddr} = req.body

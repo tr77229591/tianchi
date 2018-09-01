@@ -69,23 +69,23 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
-            "field": "involvedFIs",
-            "description": "<p>参与的金融机构列表</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "offers",
             "description": "<p>金融机构报价</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "winnerFI",
             "description": "<p>中标银行</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "involvedFIs",
+            "description": "<p>参与的金融机构列表</p>"
           }
         ]
       }
@@ -98,62 +98,6 @@ define({ "api": [
     "version": "1.0.0",
     "filename": "routes/bid.js",
     "groupTitle": "Bid"
-  },
-  {
-    "type": "post",
-    "url": "/update",
-    "title": "更新内容",
-    "description": "<p>所有字段均在此处更新</p>",
-    "name": "update",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "structName",
-            "description": "<p>需要更新的模块名称，例如企业模块Enterprise, 金融机构模块FI等</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "id",
-            "description": "<p>对应要更新内容的id号</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "json",
-            "optional": false,
-            "field": "stringifyArgument",
-            "description": "<p>需要更新的内容，必须json类型，例如 {&quot;projectInvolvement&quot;:[&quot;Px6&quot;]}</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "http://localhost:4000/update"
-      }
-    ],
-    "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "json",
-            "optional": false,
-            "field": "json",
-            "description": "<p>返回值 成功返回值</p>"
-          }
-        ]
-      }
-    },
-    "version": "1.0.0",
-    "filename": "routes/update.js",
-    "group": "C__Users_mb755003_Desktop_tianchi_tianchi_tianchi_routes_update_js",
-    "groupTitle": "C__Users_mb755003_Desktop_tianchi_tianchi_tianchi_routes_update_js"
   },
   {
     "type": "post",
@@ -170,7 +114,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "username",
-            "description": "<p>user_name</p>"
+            "description": "<p>用户名</p>"
           },
           {
             "group": "Parameter",
@@ -184,7 +128,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "name",
-            "description": "<p>Company_name</p>"
+            "description": "<p>公司名称</p>"
           },
           {
             "group": "Parameter",
@@ -227,6 +171,13 @@ define({ "api": [
             "optional": false,
             "field": "basicFIAccount",
             "description": "<p>基本开户银行账号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "list",
+            "optional": true,
+            "field": "projectInvolvement",
+            "description": "<p>参与项目</p>"
           }
         ]
       }
@@ -241,7 +192,7 @@ define({ "api": [
     "groupTitle": "Compangy"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/login",
     "title": "企业登录",
     "description": "<p>企业登录</p>",
@@ -298,7 +249,7 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/login",
+    "url": "/enterprises/fetchcompany/:id",
     "title": "企业查询",
     "description": "<p>企业查询</p>",
     "name": "querryCompany",
@@ -324,6 +275,62 @@ define({ "api": [
     "version": "1.0.0",
     "filename": "routes/enterprises.js",
     "groupTitle": "Compangy"
+  },
+  {
+    "type": "post",
+    "url": "/update",
+    "title": "更新内容",
+    "description": "<p>所有字段均在此处更新</p>",
+    "group": "Update",
+    "name": "update",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "structName",
+            "description": "<p>需要更新的模块名称，例如企业模块Enterprise, 金融机构模块FI等</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>对应要更新内容的id号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "json",
+            "optional": false,
+            "field": "stringifyArgument",
+            "description": "<p>需要更新的内容，必须json类型，例如 {&quot;projectInvolvement&quot;:[&quot;Px6&quot;]}</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/update"
+      }
+    ],
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "json",
+            "optional": false,
+            "field": "json",
+            "description": "<p>返回值 成功返回值</p>"
+          }
+        ]
+      }
+    },
+    "version": "1.0.0",
+    "filename": "routes/update.js",
+    "groupTitle": "Update"
   },
   {
     "type": "get",
@@ -367,13 +374,13 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "lrfs",
             "description": "<p>法人代表家族史</p>"
           },
           {
             "group": "Parameter",
-            "type": "[]string",
+            "type": "list",
             "optional": false,
             "field": "actualControllers",
             "description": "<p>实际控制人列表List</p>"
@@ -412,7 +419,7 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "balanceSheet",
             "description": "<p>资产负债表</p>"
           },
@@ -530,6 +537,13 @@ define({ "api": [
             "optional": false,
             "field": "password",
             "description": "<p>金融机构密码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "list",
+            "optional": true,
+            "field": "projectInvolvement",
+            "description": "<p>参与项目</p>"
           }
         ]
       }
@@ -658,6 +672,13 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
+            "field": "id",
+            "description": "<p>项目ID</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
             "field": "name",
             "description": "<p>项目名称</p>"
           },
@@ -678,63 +699,63 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "updownFirm",
             "description": "<p>上下游企业列表</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "progress",
             "description": "<p>项目进展</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "bidInfo",
             "description": "<p>招标信息</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "winnerFI",
             "description": "<p>中标金融机构</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
-            "field": "creditLimit",
-            "description": "<p>授信额度</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "usedLimit",
-            "description": "<p>已用额度</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "capitalFlow",
             "description": "<p>资金流信息（时间+信息）</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "cargoFlow",
             "description": "<p>货物流信息（时间+信息）</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
+            "field": "creditLimit",
+            "description": "<p>授信额度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "usedLimit",
+            "description": "<p>已用额度</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
             "field": "ddr",
             "description": "<p>中标银行</p>"
           }

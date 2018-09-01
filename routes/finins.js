@@ -14,6 +14,7 @@ let router = express.Router()
  * @apiParam {string} name 金融机构名称
  * @apiParam {string} address 金融机构地址
  * @apiParam {string} password 金融机构密码
+ * @apiParam {list} [projectInvolvement] 参与项目
  * @apiSampleRequest http://localhost:4000/finins/newfin
  * @apiVersion 1.0.0
  */

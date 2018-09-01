@@ -6,6 +6,7 @@ let router = express.Router()
 /**
  * @api {post} /update  更新内容
  * @apiDescription 所有字段均在此处更新
+ * @apiGroup Update
  * @apiName update
  * @apiParam {string} structName 需要更新的模块名称，例如企业模块Enterprise, 金融机构模块FI等
  * @apiParam {string} id 对应要更新内容的id号

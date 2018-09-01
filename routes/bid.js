@@ -16,12 +16,14 @@ let router = express.Router()
  * @apiParam {string} startDate 发起时间
  * @apiParam {string} endDate 结束时间
  * @apiParam {string} project 所属项目
+ * @apiParam {string} [offers] 金融机构报价
+ * @apiParam {string} [winnerFI] 中标银行
  * @apiParam {string} involvedFIs 参与的金融机构列表
- * @apiParam {string} offers 金融机构报价
- * @apiParam {string} winnerFI 中标银行
  * @apiSampleRequest http://localhost:4000/bid/newbid
  * @apiVersion 1.0.0
  */
+
+
 router.post('/newbid',function(req,res){
   let {id,startDate,endDate,project,involvedFIs,offers,winnerFI} = req.body
   involvedFIs = involvedFIs.split(",").join(`\","`)

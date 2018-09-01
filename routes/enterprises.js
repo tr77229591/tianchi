@@ -11,15 +11,16 @@ let router = express.Router()
  * @apiDescription 新增一个企业
  * @apiName addCompany
  * @apiGroup Compangy
- * @apiParam {string} username user_name
+ * @apiParam {string} username 用户名
  * @apiParam {string} password 用户密码
- * @apiParam {string} name Company_name
+ * @apiParam {string} name 公司名称
  * @apiParam {string} legalPersonality 法人代表
  * @apiParam {string} registeredCaptial 注册资本
  * @apiParam {string} dateOfEstablishment 成立日期
  * @apiParam {string} businessScope 营业范围
  * @apiParam {string} basicFIName 基本开户银行名称
  * @apiParam {string} basicFIAccount 基本开户银行账号
+ * @apiParam {list} [projectInvolvement] 参与项目
 
  * @apiSampleRequest http://localhost:4000/enterprises/newenterprise
  * @apiVersion 1.0.0
@@ -40,7 +41,7 @@ router.post('/newenterprise',function(req,res){
 
 
 /**
- * @api {get} /login  企业登录
+ * @api {post} /login  企业登录
  * @apiDescription 企业登录
  * @apiName login
  * @apiGroup Compangy
@@ -91,7 +92,7 @@ router.post('/login/',function(req,res){
 // query company
 
 /**
- * @api {get} /login  企业查询
+ * @api {get} /enterprises/fetchcompany/:id  企业查询
  * @apiDescription 企业查询
  * @apiName querryCompany
  * @apiGroup Compangy

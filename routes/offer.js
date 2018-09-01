@@ -19,8 +19,8 @@ let router = express.Router()
  */
 router.post('/newoffer',function(req,res){
   let {id,loanAmount,interestRate} = req.body
-  // let request= "{\"id\":\""+id+"\",\"loanAmount\":"+loanAmount+",\"interestRate\":"+interestRate+"}"
-  let request="{\"id\":\"Ox1\",\"loanAmount\":600000,\"interestRate\":0.5}"
+  let request= "{\"id\":\""+id+"\",\"loanAmount\":"+loanAmount+",\"interestRate\":"+interestRate+"}"
+  // let request="{\"id\":\"Ox1\",\"loanAmount\":600000,\"interestRate\":0.5}"
   let results = utils.asyncInvoke(CHAINCODE_ID,"addOffer",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new offer"})

@@ -11,7 +11,7 @@ let router = express.Router()
  * @apiDescription 新增尽职报告调查
  * @apiName newddr
  * @apiGroup ddr
- * @apiParam {string} balanceSheet 资产负债表
+ * @apiParam {string} [balanceSheet] 资产负债表
  * @apiParam {string} description 其他描述
  * @apiSampleRequest http://localhost:4000/ddr/newddr
  * @apiVersion 1.0.0
