@@ -10,7 +10,7 @@ let balanceSheet =require('./routes/balancesheet.js')
 let bid = require('./routes/bid.js')
 let offer = require('./routes/offer.js')
 let update = require('./routes/update.js')
-
+let queryall = require('./routes/queryall.js')
 
 let path = require("path")
 let app = express()
@@ -35,9 +35,7 @@ app.use('/public',express.static('public'))
 app.set('views', path.join(__dirname,'views'));
 app.set('view engine','pug');
 /// only for test
-app.get('/',function(req,res){
-  res.render('test.pug')
-})
+
 
 
 
@@ -50,7 +48,7 @@ app.use('/balanceSheet',balanceSheet)
 app.use('/bid',bid)
 app.use('/offer',offer)
 app.use('/update',update)
-
+app.use('/queryall',queryall)
 
 
 

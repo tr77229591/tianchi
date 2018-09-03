@@ -100,6 +100,35 @@
     "groupTitle": "Bid"
   },
   {
+    "type": "get",
+    "url": "/queryall/:things",
+    "title": "query all things",
+    "description": "<p>query all things</p>",
+    "name": "queryall",
+    "group": "Bid",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "things",
+            "description": "<p>objtctType:eg.Offer</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "http://localhost:4000/queryall/:things"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "routes/queryall.js",
+    "groupTitle": "Bid"
+  },
+  {
     "type": "post",
     "url": "/enterprises/newenterprise",
     "title": "新增企业",
