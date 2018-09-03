@@ -14,13 +14,13 @@ let router = express.Router()
  * @apiParam {string} id 项目ID
  * @apiParam {string} name 项目名称
  * @apiParam {string} description 项目简介
- * @apiParam {string} coreFirm 核心企业列表
- * @apiParam {string} [updownFirm] 上下游企业列表
- * @apiParam {dictionary} [progress] 项目进展
+ * @apiParam {list} coreFirm 核心企业列表
+ * @apiParam {list} [updownFirm] 上下游企业列表
+ * @apiParam {json} [progress] 项目进展
  * @apiParam {string} [bidInfo]  招标信息
  * @apiParam {string} [winnerFI] 中标金融机构
- * @apiParam {dictionary} [capitalFlow] 资金流信息（时间+信息）
- * @apiParam {dictionary} [cargoFlow] 货物流信息（时间+信息）
+ * @apiParam {json} [capitalFlow] 资金流信息（时间+信息）
+ * @apiParam {json} [cargoFlow] 货物流信息（时间+信息）
  * @apiParam {string} [creditLimit] 授信额度
  * @apiParam {string} [usedLimit] 已用额度
  * @apiParam {string} [ddr] 中标银行
@@ -29,8 +29,9 @@ let router = express.Router()
 
  */
 router.post('/newproject',function(req,res){
-  const {id,name,description,coreFirm,updownFirm,progress,bidInfo,winnerFI,creditLimit,usedLimit,capitalFlow,cargoFlow,ddr} = req.body
-  const request="{\"id\":\""+id+"\",\"name\":\""+name+"\",\"description\":\""+description+"\",\"ddr\":\"\",\"coreFirm\":[],\"updownFirm\":[],\"progress\":{},\"bidInfo\":\"\",\"winnerFI\":\"\",\"creditLimit\":0,\"usedLimit\":0,\"capitalFlow\":{},\"cargoFlow\":{}}"
+  // const {id,name,description,ddr,coreFirm,updownFirm,progress,bidInfo,winnerFI,creditLimit,usedLimit,capitalFlow,cargoFlow} = req.body
+  // const request="{\"id\":\""+id+"\",\"name\":\""+name+"\",\"description\":\""+description+"\",\"ddr\":\"\",\"coreFirm\":[],\"updownFirm\":[],\"progress\":{},\"bidInfo\":\"\",\"winnerFI\":\"\",\"creditLimit\":\"0\",\"usedLimit\":\"0\",\"capitalFlow\":{},\"cargoFlow\":{}}"
+  let request = JSON.stringify(req.body)
   let results = utils.asyncInvoke(CHAINCODE_ID,"addProject",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new finiancial institution"})

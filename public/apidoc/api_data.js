@@ -68,7 +68,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "json",
             "optional": true,
             "field": "offers",
             "description": "<p>金融机构报价</p>"
@@ -82,7 +82,7 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "list",
             "optional": false,
             "field": "involvedFIs",
             "description": "<p>参与的金融机构列表</p>"
@@ -237,8 +237,8 @@ define({ "api": [
       },
       "examples": [
         {
-          "title": "返回样例: ",
-          "content": "{ \n  \"code\": 1,\n  \"payload\": {\n      \"basicFIAccount\": \"10086\",\n      \"basicFIName\": \"china bank\",\n      \"businessScope\": \"game\",\n       \"dateOfEstablishment\": \"2018.08.20\",\n      \"id\": \"049f36a18084c13ea375dd7979565584\",\n      \"legalPersonality\": \"MAhuateng\",\n      \"name\": \"company1\",\n      \"projectInvolvement\": [],\n      \"registeredCapital\": \"10\"\n }",
+          "title": "返回样例:",
+          "content": "{\n  \"code\": 1,\n  \"payload\": {\n      \"basicFIAccount\": \"10086\",\n      \"basicFIName\": \"china bank\",\n      \"businessScope\": \"game\",\n       \"dateOfEstablishment\": \"2018.08.20\",\n      \"id\": \"049f36a18084c13ea375dd7979565584\",\n      \"legalPersonality\": \"MAhuateng\",\n      \"name\": \"company1\",\n      \"projectInvolvement\": [],\n      \"registeredCapital\": \"10\"\n }",
           "type": "json"
         }
       ]
@@ -396,7 +396,7 @@ define({ "api": [
     "error": {
       "examples": [
         {
-          "title": "错误返回: ",
+          "title": "错误返回:",
           "content": "{error:\"create fin fail \"}",
           "type": "json"
         }
@@ -418,7 +418,7 @@ define({ "api": [
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "json",
             "optional": true,
             "field": "balanceSheet",
             "description": "<p>资产负债表</p>"
@@ -587,7 +587,7 @@ define({ "api": [
     "groupTitle": "fin"
   },
   {
-    "type": "get",
+    "type": "post",
     "url": "/offer/newoffer",
     "title": "提交金融机构报价",
     "description": "<p>提交金融机构</p>",
@@ -691,21 +691,21 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "list",
             "optional": false,
             "field": "coreFirm",
             "description": "<p>核心企业列表</p>"
           },
           {
             "group": "Parameter",
-            "type": "string",
+            "type": "list",
             "optional": true,
             "field": "updownFirm",
             "description": "<p>上下游企业列表</p>"
           },
           {
             "group": "Parameter",
-            "type": "dictionary",
+            "type": "json",
             "optional": true,
             "field": "progress",
             "description": "<p>项目进展</p>"
@@ -726,14 +726,14 @@ define({ "api": [
           },
           {
             "group": "Parameter",
-            "type": "dictionary",
+            "type": "json",
             "optional": true,
             "field": "capitalFlow",
             "description": "<p>资金流信息（时间+信息）</p>"
           },
           {
             "group": "Parameter",
-            "type": "dictionary",
+            "type": "json",
             "optional": true,
             "field": "cargoFlow",
             "description": "<p>货物流信息（时间+信息）</p>"

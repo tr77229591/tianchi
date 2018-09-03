@@ -19,12 +19,15 @@ let router = express.Router()
  * @apiVersion 1.0.0
  */
 router.post('/newfin',function(req,res){
-  const {name,address,password} = req.body
+  const {name,password} = req.body
   const plaintext = name+password
   let ID=utils.encrypted(plaintext,SALT)
-  const request = "{\"id\":\""+ID+"\",\"name\":\""+name+"\",\"address\":\""+address+"\",\"projectInvolvement\":[]}"
-  // console.log(request)
+  // const request = "{\"id\":\""+ID+"\",\"name\":\""+name+"\",\"address\":\""+address+"\",\"projectInvolvement\":[]}"
   // const request2case="{\"id\":\"FIx1\",\"name\":\"中国银行\",\"address\":\"故宫里头\",\"projectInvolvement\":[]}"
+  let request = req.body
+  delete request.password
+  request.id = ID
+  request = JSON.stringify(req.body)
   let results = utils.asyncInvoke(CHAINCODE_ID,"addFI",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new finiancial institution"})

@@ -29,7 +29,12 @@ router.post('/newenterprise',function(req,res){
   const {username,password,name,legalPersonality,registeredCaptial,dateOfEstablishment,businessScope,basicFIName,basicFIAccount,projectInvolvement} = req.body
   const plaintext = username+password
   let ID=utils.encrypted(plaintext,SALT)
-  const request ="{\"id\":\""+ID+"\",\"name\":\""+name+"\",\"legalPersonality\":\""+legalPersonality+"\",\"registeredCapital\":\""+registeredCaptial+"\",\"dateOfEstablishment\":\""+dateOfEstablishment+"\",\"businessScope\":\""+businessScope+"\",\"basicFIName\":\""+basicFIName+"\",\"basicFIAccount\":\""+basicFIAccount+"\",\"projectInvolvement\":[]}"
+  // const request ="{\"id\":\""+ID+"\",\"name\":\""+name+"\",\"legalPersonality\":\""+legalPersonality+"\",\"registeredCapital\":\""+registeredCaptial+"\",\"dateOfEstablishment\":\""+dateOfEstablishment+"\",\"businessScope\":\""+businessScope+"\",\"basicFIName\":\""+basicFIName+"\",\"basicFIAccount\":\""+basicFIAccount+"\",\"projectInvolvement\":[]}"
+  let request = req.body
+  delete request.username
+  delete request.password
+  request.id = ID
+  request = JSON.stringify(req.body)
   let results = utils.asyncInvoke(CHAINCODE_ID,"addEnterprise",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new enterprise"})
@@ -49,8 +54,8 @@ router.post('/newenterprise',function(req,res){
  * @apiParam {string} password 企业密码
  * @apiSampleRequest http://localhost:4000/enterprises/login
  * @apiSuccess {json} result 返回当前企业所有数据.
- * @apiSuccessExample {json} 返回样例: 
- * { 
+ * @apiSuccessExample {json} 返回样例:
+ * {
  *   "code": 1,
  *   "payload": {
  *       "basicFIAccount": "10086",

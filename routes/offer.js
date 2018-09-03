@@ -7,7 +7,7 @@ let router = express.Router()
 
 
 /**
- * @api {get} /offer/newoffer  提交金融机构报价
+ * @api {post} /offer/newoffer  提交金融机构报价
  * @apiDescription 提交金融机构
  * @apiName newoffer
  * @apiGroup offer
@@ -18,9 +18,10 @@ let router = express.Router()
  * @apiVersion 1.0.0
  */
 router.post('/newoffer',function(req,res){
-  let {id,loanAmount,interestRate} = req.body
-  let request= "{\"id\":\""+id+"\",\"loanAmount\":"+loanAmount+",\"interestRate\":"+interestRate+"}"
-  // let request="{\"id\":\"Ox1\",\"loanAmount\":600000,\"interestRate\":0.5}"
+  // let {id,loanAmount,interestRate} = req.body
+  // let request= "{\"id\":\""+id+"\",\"loanAmount\":\""+loanAmount+"\",\"interestRate\":\""+interestRate+"\"}"
+  let request = JSON.stringify(req.body)
+
   let results = utils.asyncInvoke(CHAINCODE_ID,"addOffer",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new offer"})

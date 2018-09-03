@@ -16,9 +16,9 @@ let router = express.Router()
  * @apiParam {string} startDate 发起时间
  * @apiParam {string} endDate 结束时间
  * @apiParam {string} project 所属项目
- * @apiParam {string} [offers] 金融机构报价
+ * @apiParam {json} [offers] 金融机构报价
  * @apiParam {string} [winnerFI] 中标银行
- * @apiParam {string} involvedFIs 参与的金融机构列表
+ * @apiParam {list} involvedFIs 参与的金融机构列表
  * @apiSampleRequest http://localhost:4000/bid/newbid
  * @apiVersion 1.0.0
  */
@@ -26,8 +26,10 @@ let router = express.Router()
 
 router.post('/newbid',function(req,res){
   let {id,startDate,endDate,project,involvedFIs,offers,winnerFI} = req.body
-  involvedFIs = involvedFIs.split(",").join(`\","`)
-  const request = "{\"id\":\""+id+"\",\"startDate\":\""+startDate+"\",\"endDate\":\""+endDate+"\",\"project\":\""+project+"\",\"involvedFIs\":[\""+involvedFIs+"\"],\"offers\":{},\"winnerFI\":\"\"}"
+  // involvedFIs = involvedFIs.split(",").join(`\","`)
+  // const request = "{\"id\":\""+id+"\",\"startDate\"\""+startDate+"\",\"endDate\":\""+endDate+"\",\"project\":\""+project+"\",\"involvedFIs\":[\""+involvedFIs+"\"],\"offers\":{},\"winnerFI\":\"\"}"
+  let request = JSON.stringify(req.body)
+
   let results = utils.asyncInvoke(CHAINCODE_ID,"addBid",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new bid"})

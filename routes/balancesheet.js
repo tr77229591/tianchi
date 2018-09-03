@@ -14,14 +14,16 @@ let router = express.Router()
  * @apiSampleRequest http://localhost:4000/balancesheet/newbalancesheet
 
 
- * @apiErrorExample {json} 错误返回: 
+ * @apiErrorExample {json} 错误返回:
  * {error:"create fin fail "}
  * @apiVersion 1.0.0
  */
 router.post('/newbalancesheet',function(req,res){
   let {id,lrfs,actualControllers} = req.body
-  actualControllers = actualControllers.split(",").join(`\","`)
-  const request = "{\"id\":\""+id+"\",\"LRFS\":\"\",\"actualControllers\":[\""+actualControllers+"\"]}"
+  // actualControllers = actualControllers.split(",").join(`\","`)
+  // const request = "{\"id\":\""+id+"\",\"LRFS\":\"\",\"actualControllers\":[\""+actualControllers+"\"]}"
+  let request = JSON.stringify(req.body)
+
   let results = utils.asyncInvoke(CHAINCODE_ID,"addBalanceSheet",[request])
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new balancesheet"})
