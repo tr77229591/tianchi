@@ -17,6 +17,7 @@ let router = express.Router()
  */
 router.post('/',function(req,res){
   let { structName,id,stringifyArgument} = req.body
+  stringifyArgument = JSON.stringify(stringifyArgument)
   let results = utils.asyncInvoke(CHAINCODE_ID,"update",[structName,id,stringifyArgument])
   results.then(data=>{
       res.send({code:1,payload:"Successfully update"})

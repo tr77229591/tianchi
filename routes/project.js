@@ -36,7 +36,7 @@ router.post('/newproject',function(req,res){
   results.then(data=>{
       res.send({code:1,payload:"Successfully register new finiancial institution"})
     })
-    .catch(err=>res.status(400).send({error:"create finiancial institution fail "+ err}))
+    .catch(err=>res.status(400).send({error:"create project fail "+ err}))
   })
 
 

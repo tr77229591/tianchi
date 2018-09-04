@@ -135,7 +135,7 @@ module.exports.invokeChain = async function(client,channel,peer,my_peers,chainco
                     var handle = setTimeout(function() {
                         eh.disconnect()
                         reject()
-                    }, 3000)
+                    }, 30000)
 
                     eh.registerTxEvent(transactionID, function(tx, code) {
                         clearTimeout(handle)
